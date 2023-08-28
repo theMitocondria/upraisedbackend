@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-export const sendEmail = async (
+const sendEmail = async (
   receiverEmail,
   heading,
   message,
@@ -31,3 +31,6 @@ export const sendEmail = async (
   transport.sendMail(mailOptions);
 
 };
+
+
+export default sendEmail;
