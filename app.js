@@ -6,6 +6,7 @@ import user from './routes/user.js';
 import session from "express-session";
 import { Strategy } from "passport-google-oauth20";
 import passport from "passport";
+import blog from './routes/blog.js';
 
 
 const app = express();
@@ -44,7 +45,7 @@ const port = process.env.PORT;
 
 
 app.use("/auth", user);
-
+app.use("/blog", blog)
 
 
 
