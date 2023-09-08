@@ -8,14 +8,15 @@ export const register = async(req, res) => {
     try{
         const {email, password, confirmPassword, name, phoneNo} = req.body;
         if (!email ||  !name  ||  !password || !confirmPassword|| !phoneNo ) {
-            res.status(400).json({
+           return res.status(400).json({
                message: "provide all the credentials",
                success: false,
            })
        }
+       console.log(email, password, phoneNo)
 
        if(confirmPassword != password){
-        res.status(400).json({
+       return res.status(400).json({
             message:"password did not match", 
             success: false,
         })
@@ -45,14 +46,14 @@ export const register = async(req, res) => {
        const user = new User({name, email, password, phoneNo, verificationCode, verificationCodeExpiresAt});
        user.token = generateToken(user.email);
        await user.save();
-       res.status(200).json({
+       return res.status(200).json({
         message:"Otp send successsfully",
         success: true,
         user
        })
 
     }catch(e){
-        res.status(500).json({
+      return  res.status(500).json({
             message:`${e}`,
             success: false
            })
@@ -84,14 +85,14 @@ export const verifyOtp = async(req, res) => {
         user.verificationCodeExpiresAt = new Date();
         await user.save();
         console.log("verifed")
-        res.status(200).json({
+       return res.status(200).json({
             message:"user verified successfully", 
             success: true,
             user
         })
 
     }catch(e){
-        res.status(500).json({
+      return  res.status(500).json({
             message:`${e}`,
             success: false
            })
