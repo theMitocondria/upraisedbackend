@@ -6,8 +6,8 @@ import sendEmail from '../middlewares/sendMail.js'
 
 export const register = async(req, res) => {
     try{
-        const {email, password, confirmPassword, name} = req.body;
-        if (!email ||  !name  ||  !password || !confirmPassword) {
+        const {email, password, confirmPassword, name, phoneNo} = req.body;
+        if (!email ||  !name  ||  !password || !confirmPassword|| !phoneNo ) {
             res.status(400).json({
                message: "provide all the credentials",
                success: false,
@@ -42,7 +42,7 @@ export const register = async(req, res) => {
        await sendEmail(email, "verificationCode", verificationCode, name);
        const verificationCodeExpiresAt = new Date().getTime() + 10 * 60 * 1000; // Expires in 10 minutes
 
-       const user = new User({name, email, password,  verificationCode, verificationCodeExpiresAt});
+       const user = new User({name, email, password, phoneNo, verificationCode, verificationCodeExpiresAt});
        user.token = generateToken(user.email);
        await user.save();
        res.status(200).json({
@@ -200,6 +200,7 @@ export const forgetPassword = async(req, res) => {
 
         const resetUrl = `http://localhost:3000/reset/password/`+resetToken;
 
+        
         await sendResetPasswordEmail(user.name,email, resetUrl);
 
         return res.status(200).json({
