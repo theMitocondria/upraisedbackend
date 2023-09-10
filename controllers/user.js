@@ -265,7 +265,7 @@ export const sendquerymail = async(req, res) => {
 
         const {name, email, phoneNo, message}  = req.body;
         
-        await sendEmail('cust.cross.fit@gmail.com', message, `${message} query from user with details ${phoneNo} ${email}`)
+        await sendEmail(email, message, `${message} ${name} query from user with details ${phoneNo} ${email}`)
 
         return res.status(200).json({
             success: true,
