@@ -63,7 +63,8 @@ export const register = async(req, res) => {
 
 export const verifyOtp = async(req, res) => {
     try{
-
+        
+        
 
         const {email, verificationCode } = req.body;
 
@@ -249,6 +250,29 @@ export const resetPassword = async(req, res) => {
             success: true,
             message:"password updated succcessfully."
         })
+
+    }catch (error) {
+
+        res.status(500).json({
+            message: error.message,
+            success: false,
+        })
+    }
+}
+
+export const sendquerymail = async(req, res) => {
+    try{
+
+        const {name, email, phoneNo, message}  = req.body;
+        
+        await sendEmail('cust.cross.fit@gmail.com', message, `${message} query from user with details ${phoneNo} ${email}`)
+
+        return res.status(200).json({
+            success: true,
+            message:" Query send Successfuly to the owner"
+        })
+
+
 
     }catch (error) {
 
