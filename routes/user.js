@@ -3,7 +3,7 @@ import { Strategy } from "passport-google-oauth20";
 import passport from "passport";
 
 import dotenv from "dotenv";
-import { forgetPassword, login, register, resetPassword, signInWithGoogle, verifyOtp } from "../controllers/user.js";
+import { forgetPassword, login, register, resetPassword, sendquerymail, signInWithGoogle, verifyOtp } from "../controllers/user.js";
 import User from "../models/User.js";
 
 
@@ -43,6 +43,7 @@ passport.use(
 userRouter.post("/register", register);
 userRouter.post("/verify-user", verifyOtp);
 userRouter.post("/login", login);
+userRouter.post("/sendmail", sendquerymail);
 
 userRouter.get(
   "/google",
