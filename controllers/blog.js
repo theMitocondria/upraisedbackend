@@ -22,6 +22,9 @@ export const createBlog = async(req, res) => {
     try{
        
        const {title, subheading, description}  = req.body;
+   
+        // const image = "khfdasj"
+    //    console.log(req.file);    
        const image = req.file.path;
         console.log(title, subheading, description, image);
     //    const imgbuffer = req.file.buffer.toString('base64'); 
